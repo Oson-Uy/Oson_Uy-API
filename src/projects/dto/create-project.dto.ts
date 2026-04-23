@@ -1,11 +1,4 @@
-import {
-  IsNotEmpty,
-  IsString,
-  IsInt,
-  IsOptional,
-  IsBoolean,
-} from 'class-validator';
-import { Type } from 'class-transformer';
+import { IsNotEmpty, IsString, IsInt, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateProjectDto {
@@ -51,17 +44,6 @@ export class CreateProjectDto {
   @IsOptional()
   @IsString()
   videoUrl?: string;
-
-  @ApiProperty({
-    description: 'Whether the project should be highlighted as popular',
-    example: true,
-    required: false,
-    default: false,
-  })
-  @IsOptional()
-  @Type(() => Boolean)
-  @IsBoolean()
-  isPopular?: boolean;
 
   @ApiProperty({
     description: 'The ID of the developer owning this project',

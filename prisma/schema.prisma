@@ -8,7 +8,6 @@ generator client {
 datasource db {
     provider = "postgresql"
     url      = env("DATABASE_URL")
-    directUrl = env("DIRECT_URL")
 }
 
 model Developer {
@@ -28,7 +27,6 @@ model Project {
     deliveryDate String
     imageUrl     String  @default("https://via.placeholder.com/800x600?text=Project+Image")
     videoUrl     String?
-    isPopular    Boolean @default(false)
     developerId  Int
 
     developer  Developer   @relation(fields: [developerId], references: [id], onDelete: Cascade)
@@ -65,12 +63,12 @@ model Lead {
     name        String
     phone       String
     apartmentId Int?
-    projectId   Int
+    projectId   Int?
     status      LeadStatus @default(NEW)
     createdAt   DateTime   @default(now())
 
     apartment Apartment? @relation(fields: [apartmentId], references: [id], onDelete: SetNull)
-    project   Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+    project   Project?   @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
     @@index([projectId])
     @@index([status])

@@ -13,14 +13,21 @@ export class AnalyticsService {
   async getProjectsAnalytics(): Promise<ProjectLeadAnalytics[]> {
     const groupedLeads = await this.prisma.lead.groupBy({
       by: ['projectId'],
+      where: {
+        projectId: {
+          not: null,
+        },
+      },
       _count: {
         id: true,
       },
     });
 
-    return groupedLeads.map((item) => ({
-      projectId: item.projectId,
+    return groupedLeads
+      .filter((item) => item.projectId !== null)
+      .map((item) => ({
+        projectId: item.projectId,
       leadsCount: item._count.id,
-    }));
+      }));
   }
 }
