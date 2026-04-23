@@ -6,8 +6,9 @@ export interface NotificationProvider {
 
 @Injectable()
 export class MockNotificationProvider implements NotificationProvider {
-  async send(message: string): Promise<void> {
+  send(message: string): Promise<void> {
     console.log('[NOTIFICATION]', message);
+    return Promise.resolve();
   }
 }
 
@@ -26,10 +27,14 @@ export class NotificationsService {
 
   async notifyNewLead(
     leadName: string,
-    apartmentId: number,
+    apartmentId: number | null,
     projectName: string,
   ): Promise<void> {
-    const message = `New lead: ${leadName} is interested in apartment #${apartmentId} in project "${projectName}"`;
+    const apartmentText =
+      apartmentId === null
+        ? 'without a selected apartment'
+        : `in apartment #${apartmentId}`;
+    const message = `New lead: ${leadName} is interested ${apartmentText} in project "${projectName}"`;
     await this.provider.send(message);
   }
 

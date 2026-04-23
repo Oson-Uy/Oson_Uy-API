@@ -29,6 +29,8 @@ async function bootstrap() {
     .addTag('projects', 'Project management endpoints')
     .addTag('apartments', 'Apartment management endpoints')
     .addTag('leads', 'Lead management endpoints')
+    .addTag('analytics', 'MVP analytics endpoints')
+    .addTag('media', 'Media upload endpoints')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
@@ -37,4 +39,4 @@ async function bootstrap() {
   await app.listen(process.env.PORT ?? 3002);
   console.log('Application is running on: http://localhost:3002');
 }
-bootstrap();
+void bootstrap();

@@ -30,7 +30,8 @@ export class FilterProjectDto {
   })
   @IsOptional()
   @Type(() => Number)
-  minRooms?: number;
+  @IsNumber()
+  rooms?: number;
 
   @ApiProperty({
     description: 'Location/city of the project',

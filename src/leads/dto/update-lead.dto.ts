@@ -4,7 +4,6 @@ import { ApiProperty } from '@nestjs/swagger';
 enum LeadStatus {
   NEW = 'NEW',
   CONTACTED = 'CONTACTED',
-  CLOSED = 'CLOSED',
 }
 
 export class UpdateLeadDto {

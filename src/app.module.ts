@@ -5,6 +5,7 @@ import { ProjectsModule } from './projects/projects.module';
 import { ApartmentsModule } from './apartments/apartments.module';
 import { LeadsModule } from './leads/leads.module';
 import { AnalyticsModule } from './analytics/analytics.module';
+import { MediaModule } from './media/media.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { AnalyticsModule } from './analytics/analytics.module';
     ApartmentsModule,
     LeadsModule,
     AnalyticsModule,
+    MediaModule,
   ],
   providers: [PrismaService],
 })

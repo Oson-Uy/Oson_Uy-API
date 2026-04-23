@@ -5,6 +5,7 @@ import {
   Matches,
   IsOptional,
 } from 'class-validator';
+import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateLeadDto {
@@ -31,17 +32,19 @@ export class CreateLeadDto {
   @ApiProperty({
     description: 'The ID of the apartment the lead is interested in',
     example: 1,
-  })
-  @IsNotEmpty()
-  @IsInt()
-  apartmentId: number;
-
-  @ApiProperty({
-    description: 'The ID of the project the lead is interested in (optional)',
-    example: 1,
     required: false,
   })
   @IsOptional()
+  @Type(() => Number)
   @IsInt()
-  projectId?: number;
+  apartmentId?: number;
+
+  @ApiProperty({
+    description: 'The ID of the project the lead is interested in',
+    example: 1,
+  })
+  @IsNotEmpty()
+  @Type(() => Number)
+  @IsInt()
+  projectId: number;
 }

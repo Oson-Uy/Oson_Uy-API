@@ -38,8 +38,8 @@ export class LeadsController {
   @ApiQuery({
     name: 'status',
     required: false,
-    description: 'Filter by lead status (NEW, CONTACTED, CLOSED)',
-    enum: ['NEW', 'CONTACTED', 'CLOSED'],
+    description: 'Filter by lead status (NEW, CONTACTED)',
+    enum: ['NEW', 'CONTACTED'],
   })
   @ApiResponse({
     status: 200,

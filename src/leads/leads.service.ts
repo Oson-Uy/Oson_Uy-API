@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
 import { NotificationsService } from '../common/services/notifications.service';
 import { CreateLeadDto } from './dto/create-lead.dto';
@@ -36,7 +37,7 @@ export class LeadsService {
   }
 
   async findAll(filters?: FilterLeadDto) {
-    const where: any = {};
+    const where: Prisma.LeadWhereInput = {};
 
     if (filters?.projectId) {
       where.projectId = filters.projectId;

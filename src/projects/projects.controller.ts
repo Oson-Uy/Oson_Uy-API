@@ -46,9 +46,9 @@ export class ProjectsController {
     type: Number,
   })
   @ApiQuery({
-    name: 'minRooms',
+    name: 'rooms',
     required: false,
-    description: 'Minimum number of rooms in apartments',
+    description: 'Exact number of rooms in apartments',
     type: Number,
   })
   @ApiQuery({
@@ -75,5 +75,17 @@ export class ProjectsController {
   @ApiResponse({ status: 404, description: 'Project not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.projectsService.findOne(id);
+  }
+
+  @Get(':id/full')
+  @ApiOperation({ summary: 'Get full project details with apartments' })
+  @ApiParam({ name: 'id', description: 'Project ID', type: Number })
+  @ApiResponse({
+    status: 200,
+    description: 'Project full details with apartments',
+  })
+  @ApiResponse({ status: 404, description: 'Project not found' })
+  findFull(@Param('id', ParseIntPipe) id: number) {
+    return this.projectsService.findFullById(id);
   }
 }

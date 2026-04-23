@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
 import { CreateApartmentDto } from './dto/create-apartment.dto';
 import { FilterApartmentDto } from './dto/filter-apartment.dto';
@@ -18,22 +19,17 @@ export class ApartmentsService {
   }
 
   async findAll(filters?: FilterApartmentDto) {
-    const where: any = {};
+    const where: Prisma.ApartmentWhereInput = {};
 
     if (filters?.projectId) {
       where.projectId = filters.projectId;
     }
 
-    if (filters?.minPrice) {
-      where.price = { gte: filters.minPrice };
-    }
-
-    if (filters?.maxPrice) {
-      if (where.price) {
-        where.price.lte = filters.maxPrice;
-      } else {
-        where.price = { lte: filters.maxPrice };
-      }
+    if (filters?.minPrice || filters?.maxPrice) {
+      where.price = {
+        ...(filters?.minPrice ? { gte: filters.minPrice } : {}),
+        ...(filters?.maxPrice ? { lte: filters.maxPrice } : {}),
+      };
     }
 
     if (filters?.rooms) {
